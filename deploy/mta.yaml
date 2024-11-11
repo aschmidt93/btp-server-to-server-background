@@ -13,8 +13,8 @@ modules:
     path: ../dist/srv/producer
     parameters:
       buildpack: nodejs_buildpack
-      memory: 128MB
-      disk-quota: 128MB
+      memory: 512MB
+      disk-quota: 512MB
       command: node ./node_modules/@sap/cds/bin/cds-serve --profile production
     properties:
       OPTIMIZE_MEMORY: true
@@ -37,8 +37,8 @@ modules:
     path: ../dist/srv/consumer
     parameters:
       buildpack: nodejs_buildpack
-      memory: 128MB
-      disk-quota: 128MB
+      memory: 512MB
+      disk-quota: 512MB
       command: node ./node_modules/@sap/cds/bin/cds-serve --profile production
     properties:
       OPTIMIZE_MEMORY: true

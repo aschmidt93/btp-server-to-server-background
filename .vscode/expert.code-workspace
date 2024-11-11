@@ -1,0 +1,61 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "..",
+    },
+    {
+      "name": "producer",
+      "path": "../packages/producer",
+    },
+    {
+      "name": "consumer",
+      "path": "../packages/consumer",
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/gen": true,
+      "packages": true,
+      "**/tsconfig.eslint.json": true,
+    },
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/.hg/store/**": true,
+      "**/gen/**": true,
+      "**/dist/**": true,
+      "**/@shared/**": true,
+    },
+    "cds.typeGenerator.enabled": true,
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    "eslint.validate": ["cds", "csn", "csv", "csv (semicolon)", "tsv", "tab"],
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[xml]": {
+      "editor.defaultFormatter": "iljapostnovs.ui5plugin",
+    },
+    "[cds]": {
+      "editor.defaultFormatter": "SAPSE.vscode-cds",
+    },
+  },
+}

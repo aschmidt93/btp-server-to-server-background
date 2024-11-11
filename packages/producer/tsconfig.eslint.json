@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["srv", "test", "public"],
+  "exclude": ["gen", "node_modules"]
+}

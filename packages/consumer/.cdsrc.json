@@ -1,0 +1,30 @@
+{
+  "cdsc": {
+    "defaultStringLength": 5000
+  },
+  "log": {
+    "levels": {
+      "cds": "error",
+      "odata": "error",
+      "app": "error",
+      "rest": "error"
+    }
+  },
+  "requires": {
+    "auth": {
+      "[production]": { "kind": "xsuaa" },
+      "[development]": {
+        "kind": "basic",
+        "users": {
+          "admin": {
+            "password": "admin",
+            "roles": ["Admin"]
+          }
+        }
+      }
+    }
+  },
+  "hana": {
+    "deploy-format": "hdbtable"
+  }
+}

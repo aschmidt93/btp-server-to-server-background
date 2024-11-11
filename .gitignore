@@ -1,0 +1,41 @@
+# CAP
+_out
+*.db
+*.sqlite
+connection.properties
+default-*.json
+.cdsrc-private.json
+target/
+@cds-models
+.ui5-tooling-modules/
+packages/**/xs-security.json
+
+
+# Web IDE, App Studio
+.che/
+
+# production
+/build
+/views
+node_modules/
+dist*/
+gen*/
+
+# MTA
+*_mta_build_tmp
+*.mtar
+mta_archives/
+mta-op-*
+Makefile_*.mta
+
+# Other
+.DS_Store
+*.orig
+*.log
+.env
+*.iml
+*.flattened-pom.xml
+
+# Test Data
+**/db/data/flexus.*.csv
+**/test/data/

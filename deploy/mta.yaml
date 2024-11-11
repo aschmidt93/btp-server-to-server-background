@@ -1,0 +1,102 @@
+_schema-version: "3.1"
+ID: backgroundjobs
+version: 1.0.0
+description: "Example project for server-to-server communication in background jobs"
+parameters:
+  enable-parallel-deployments: true
+
+modules:
+  # --------------------- PRODUCER MODULE ------------------------
+  - name: backgroundjobs-producer
+    # ------------------------------------------------------------
+    type: nodejs
+    path: ../dist/srv/producer
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 128MB
+      disk-quota: 128MB
+      command: node ./node_modules/@sap/cds/bin/cds-serve --profile production
+    properties:
+      OPTIMIZE_MEMORY: true
+    build-parameters:
+      builder: custom
+      commands: []
+    requires:
+      - name: backgroundjobs-uaa
+      - name: backgroundjobs-destination
+      - name: backgroundjobs-consumer
+    provides:
+      - name: producer-api
+        properties:
+          srv-url: ${default-url}
+
+  # --------------------- CONSUMER MODULE ------------------------
+  - name: backgroundjobs-consumer
+    # ------------------------------------------------------------
+    type: nodejs
+    path: ../dist/srv/consumer
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 128MB
+      disk-quota: 128MB
+      command: node ./node_modules/@sap/cds/bin/cds-serve --profile production
+    properties:
+      OPTIMIZE_MEMORY: true
+    build-parameters:
+      builder: custom
+      commands: []
+    requires:
+      - name: backgroundjobs-uaa
+      - name: backgroundjobs-destination
+    provides:
+      - name: consumer-api
+        properties:
+          srv-url: ${default-url}
+
+  # ---------------------- DESTINATIONS --------------------------
+  - name: backgroundjobs-destination-content
+    # ------------------------------------------------------------
+    type: com.sap.application.content
+    build-parameters:
+      no-source: true
+    requires:
+      - name: backgroundjobs-destination
+        parameters:
+          content-target: true
+      - name: consumer-api
+      - name: backgroundjobs-uaa
+        parameters:
+          service-key:
+            name: ${org}-${space}-backgroundjobs-uaa-key
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+            - Name: consumer-api
+              URL: ~{consumer-api/srv-url}
+              WebIDEEnabled: true
+              Authentication: OAuth2ClientCredentials
+              HTML5.ForwardAuthToken: false # when enabled, the ClientCredentials flow is not triggered and we need that in background jobs
+              TokenServiceURLType: Dedicated
+              TokenServiceInstanceName: ${org}-${space}-backgroundjobs-uaa
+              TokenServiceKeyName: ${org}-${space}-backgroundjobs-uaa-key
+
+resources:
+  - name: backgroundjobs-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-name: ${org}-${space}-backgroundjobs-uaa
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: ${org}-${space}-backgroundjobs
+      service-keys:
+        - name: ${org}-${space}-backgroundjobs-uaa-key
+  - name: backgroundjobs-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-name: ${org}-${space}-backgroundjobs-destination
+      service: destination
+      service-plan: lite

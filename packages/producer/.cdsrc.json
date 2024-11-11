@@ -1,0 +1,63 @@
+{
+  "cdsc": {
+    "defaultStringLength": 5000
+  },
+  "log": {
+    "levels": {
+      "cds": "error",
+      "odata": "error",
+      "app": "error",
+      "rest": "error"
+    }
+  },
+  "requires": {
+    "ConsumerService": {
+      "kind": "odata",
+      "model": "example.consumer",
+      "credentials": {
+        "path": "/api/consumer/",
+        "[production]": { "destination": "consumer-api" },
+        "[development]": {
+          "destination": {
+            "name": "consumer-api",
+            "url": "http://localhost:4005",
+            "username": "admin",
+            "password": "admin"
+          }
+        }
+      }
+    },
+    "db": {
+      "[production]": {
+        "kind": "hana",
+        "impl": "@sap/cds-hana",
+        "pool": {
+          "acquireTimeoutMillis": 10000,
+          "max": 1000
+        }
+      },
+      "[development]": {
+        "kind": "sqlite",
+        "impl": "@cap-js/sqlite",
+        "credentials": {
+          "url": ":memory:"
+        }
+      }
+    },
+    "auth": {
+      "[production]": { "kind": "xsuaa" },
+      "[development]": {
+        "kind": "basic",
+        "users": {
+          "admin": {
+            "password": "admin",
+            "roles": ["Admin"]
+          }
+        }
+      }
+    }
+  },
+  "hana": {
+    "deploy-format": "hdbtable"
+  }
+}

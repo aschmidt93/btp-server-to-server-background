@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "formulahendry.auto-rename-tag",
+    "naumovs.color-highlight",
+    "dbaeumer.vscode-eslint",
+    "pkief.material-icon-theme",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "sapse.vscode-cds",
+    "iljapostnovs.ui5plugin",
+    "wayou.vscode-todo-highlight",
+    "janisdd.vscode-edit-csv",
+    "mechatroner.rainbow-csv",
+    "humao.rest-client",
+    "tamj0rd2.ts-quickfixes-extension"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "example.consumer",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@sap-cloud-sdk/http-client": "^3.21.0",
+    "@sap/cds": "^7.9.5",
+    "@sap/cds-hana": "^2.0.0",
+    "@sap/xssec": "^3.6.1",
+    "helmet": "^7.1.0"
+  },
+  "devDependencies": {
+    "@cap-js/cds-typer": "^0.22.0",
+    "@cap-js/sqlite": "^1.7.3",
+    "@sap/cds-dk": "^7.9.8",
+    "@types/express": "^4.17.21",
+    "cpy-cli": "~4.2.0",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.4.2",
+    "rimraf": "^5.0.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "scripts": {
+    "setup": "npm ci",
+    "start-prod": "cds serve --profile production",
+    "start-dev": "cds-ts serve --profile development --port 4005",
+    "build": "npm run _build-cds && npm run _build-ts && npm run _build-copy",
+    "_build-cds": "cds build --profile production",
+    "_build-ts": "tsc",
+    "_build-copy": "cpy \"gen/srv/**\"  \"../../dist/srv/consumer\" && cpy \"@cds-models\" \"../../dist/srv/consumer\""
+  }
+}

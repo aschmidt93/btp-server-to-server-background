@@ -1,0 +1,21 @@
+{
+  "xsappname": "${default-xsappname}",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "",
+      "scope-references": ["$XSAPPNAME.Admin"],
+      "attribute-references": []
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": ["https://*.hana.ondemand.com/**"]
+  }
+}
